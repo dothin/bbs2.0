@@ -1,0 +1,26 @@
+<div class="table-wrap">
+    <div class="table-box">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>权限名</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="premission in vm.premissionList">
+                    <td>
+                        {{premission.premission_id}}
+                    </td>
+                    <td >
+                        {{premission.premission_name}}
+                    </td>
+                    <td>
+                        {{premission.premission_desc}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

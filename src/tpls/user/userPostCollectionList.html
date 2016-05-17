@@ -1,0 +1,21 @@
+<div class="table-wrap" ng-switch="vm.tableFlag">
+    <div class="no-search-post is-loading" ng-switch-when="0">加载中……</div>
+    <div class="table-box pt20" ng-switch-when="1">
+        <tm-pagination conf="paginationConf"></tm-pagination>
+        <div class="row">
+            <div class="col-md-12 list-group  pl15 delete-list relative"  ng-repeat="collection in vm.postCollectionList">
+                <a href="" class="list-group-item pl15"  ng-click="goPostDetail(collection.post_id,collection.post_title)">
+                <img ng-src="{{collection.user_face}}" class="pull-left user_face" alt="">
+                <h4 class="list-group-item-heading ellipsis">{{collection.post_title}}</h4>
+                <p class="list-group-item-text">
+                <span class="mr10">{{collection.module_name}}</span>
+                <span class="mr10">收藏于{{collection.collection_time}}</span>
+                </p>
+                </a>
+                <button type="button" class="close" ng-click="deleteCollection(collection.collection_id)" ><span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    </div>
+    <tm-pagination conf="paginationConf"></tm-pagination>
+    <div ng-switch-when="2" class="text-center">暂无记录</div>
+</div>

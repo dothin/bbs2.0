@@ -1,0 +1,12 @@
+<p class="bg-info pt10 pb10 pl15 pr15">最后由 <strong>{{vm.ruleList[0].manage_name}}</strong> 修改于 <span class="text-muted small">{{vm.ruleList[0].modify_time}}</span></p>
+<form class="form-horizontal col-sm-offset-2" role="form" name="resetPassForm" novalidate>
+    <div class="form-group h30 lh30" ng-repeat="rule in vm.ruleList">
+        <label class="w80 text-right pull-left mr10">{{rule.rule_action}}</label>
+        <label ng-class="{active:rule.rule_status}" class="check-model  pull-left mr10"><i></i><input type="checkbox" class="hidden" ng-model="rule.rule_status"></label>
+        <label class="integral-num pull-left mr10"  for="login" >可获取积分</label>
+        <input class="form-control w50 h30 pull-left" id="login" type="text"  name="login"  ng-model="rule.get_integral" ng-disabled="!rule.rule_status">&nbsp;分
+    </div>
+    <div class="form-group">
+        <input type="button"  class="btn btn-primary ml150"  ng-click="updateIntegral()" value="保存">
+    </div>
+</form>

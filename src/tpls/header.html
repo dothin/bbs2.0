@@ -1,0 +1,135 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target="#header-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="pull-left login-reg">
+                <div ng-switch="isLogin">
+                    <div ng-switch-when="true"class="dropdown mt10">
+                        <a href="" class="color-alert" ng-if="allAlert>0" ng-click="goRead()"><i class="glyphicon glyphicon-envelope"></i>&nbsp;{{allAlert}}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{vm.username}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="" ng-click="goUserInfo()">个人信息</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="" ng-click="logout()">退出</a></li>
+                        </ul>
+                    </div>
+                    <div ng-switch-when="false">
+                        <button type="button" class="btn btn-success" ng-click="loginShow()">登录</button>
+                        <button type="button" class="btn btn-warning" ng-click="regShow()">注册</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="header-navbar-collapse">
+            <form  class="navbar-form navbar-left" role="search">
+                <div class="input-group ">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{vm.searchType}}&nbsp;<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="" ng-click="vm.searchType='发帖人'">发帖人</a></li>
+                            <li><a href="" ng-click="vm.searchType='帖子'">帖子</a></li>
+                        </ul>
+                    </div>
+                    <input type="text" class="form-control" ng-model="vm.searchText" placeholder="帖子关键字，发帖人">
+                    <a class="input-group-addon" href="" ng-click="goSearch()"><span class="glyphicon glyphicon-search"></span></a>
+                </div>
+            </form>
+            <ul class="nav navbar-nav">
+                <li  ng-class="{active: state.includes('main.post')}" ><a ui-sref="main.post.postList">发现</a></li>
+                <li ui-sref-active="active" ><a ui-sref="main.modules">版块</a></li>
+                <li  ng-show="isLogin==true" ng-class="{active: state.includes('main.user')}"><a ui-sref="main.user.userInfo">个人信息</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{vm.title}}</h4>
+            </div>
+            <div class="modal-body" ng-switch="vm.tabSwitch">
+                <form class="form-horizontal" ng-switch-when="login" role="form" name="loginForm" novalidate>
+                    <div class="form-group has-feedback"  ng-class="{'has-success' : !loginForm.username.$pristine && loginForm.username.$valid, 'has-error' : !loginForm.username.$pristine && loginForm.username.$invalid }">
+                        <label for="usernameLogin" class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="username" id="usernameLogin" ng-model="vm.login.username" ng-minlength="2" ng-maxlength="20"  placeholder="用户名"  required  ng-keypress="enter($event)">
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{'has-success' : !loginForm.password.$pristine && loginForm.password.$valid, 'has-error' : !loginForm.password.$pristine && loginForm.password.$invalid }">
+                        <label for="passwordLogin" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" name="password" id="passwordLogin" ng-model="vm.login.password" placeholder="密码" ng-minlength="6" ng-maxlength="20"   required  ng-keypress="enter($event)">
+                        </div>
+                    </div>
+                    <div ng-if="vm.noUserCode" class="form-group has-feedback" ng-class="{'has-success' : !loginForm.code.$pristine && loginForm.code.$valid, 'has-error' : !loginForm.code.$pristine && loginForm.code.$invalid }">
+                        <label for="code"  class="col-sm-2 control-label">验证码</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required id="code" ng-pattern="/^[0-9a-zA-Z]{4}$/"  name="code" ng-model="vm.useCode.code" placeholder="验证码"  ng-keypress="enter($event)">
+                            <img src="/bbs2.0/php/config/code.php" class="mt10 cursor-pointer" onclick="javascript:this.src='/bbs2.0/php/config/code.php?tm='+Math.random();" />
+                        </div>
+                    </div>
+                    <div class="form-group hidden">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <div class="checkbox">
+                                <label >
+                                    <input type="checkbox" ng-modal="vm.remember" ng-click="changeCheck()" > 记住我
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="col-sm-offset-4 text-danger" ng-if="vm.isError">{{vm.errorInfo}}</span>
+                    <div class="form-group login-reg-btn">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="button" id="submit" ng-disabled="loginForm.password.$pristine||loginForm.username.$pristine||loginForm.password.$dirty && loginForm.password.$invalid ||  loginForm.username.$dirty && loginForm.username.$invalid||  loginForm.code.$dirty && loginForm.code.$invalid" class="btn btn-primary" ng-click="login()">登录</button>没有账号？立即<a href="javascript:;" ng-click="changeToReg()">注册</a>
+                        </div>
+                    </div>
+                </form>
+                <form class="form-horizontal" ng-switch-when="reg"  role="form" name="regForm" novalidate>
+                    <div class="form-group has-feedback"  ng-class="{'has-success' : !regForm.username.$pristine && regForm.username.$valid, 'has-error' : !regForm.username.$pristine && regForm.username.$invalid }">
+                        <label for="usernameReg" class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="username" id="usernameReg" ng-model="vm.reg.username" placeholder="用户名" ng-minlength="2" ng-maxlength="20"  required  ng-keypress="regEnter($event)">
+                        </div>
+                    </div>
+                    <span class="small hidden-xs text-muted col-sm-offset-2 pl15">(密码至少包含大小写字母、数字、特殊字符中的两种)</span>
+                    <div class="form-group has-feedback" ng-class="{'has-success' : !regForm.password.$pristine && regForm.password.$valid, 'has-error' : !regForm.password.$pristine && regForm.password.$invalid }">
+                        <label for="passwordReg" class="col-sm-2 control-label">密码<span class="small visible-xs-inline text-muted">(至少包含大小写字母、数字、特殊字符中的两种)</span></label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" name="password" id="passwordReg" ng-model="vm.reg.password" placeholder="6到20位" required  validate-password   ng-minlength="6" ng-maxlength="20" ng-keypress="regEnter($event)">
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{'has-success' : !regForm.repassword.$pristine && regForm.repassword.$valid, 'has-error' : !regForm.repassword.$pristine && regForm.repassword.$invalid }">
+                        <label for="repasswordReg" class="col-sm-2 control-label">确认密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control"  repeat="password" name="repassword" id="regpasswordReg" ng-model="vm.reg.repassword" validate-password placeholder="6到20位" required  ng-keypress="regEnter($event)">
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{'has-success' : !regForm.code.$pristine && regForm.code.$valid, 'has-error' : !regForm.code.$pristine && regForm.code.$invalid }">
+                        <label for="code"  class="col-sm-2 control-label">验证码</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required id="code" ng-pattern="/^[0-9a-zA-Z]{4}$/"  name="code" ng-model="vm.reg.code" placeholder="验证码">
+                            <img src="/bbs2.0/php/config/code.php" class="mt10 cursor-pointer" onclick="javascript:this.src='/bbs2.0/php/config/code.php?tm='+Math.random();" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-sm-offset-2 text-danger reg-error" ng-if="vm.isError">{{vm.errorInfo}}</span>
+                    </div>
+                    <div class="form-group login-reg-btn">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="button" id="submit" class="btn btn-primary" ng-disabled="regForm.password.$pristine||regForm.password.$pristine||regForm.repassword.$pristine||regForm.password.$dirty && regForm.password.$invalid ||  regForm.password.$dirty && regForm.password.$invalid||  regForm.repassword.$dirty && regForm.repassword.$invalid||  regForm.code.$dirty && regForm.code.$invalid" ng-click="reg()">注册</button>已有账号？立即<a href="javascript:;" ng-click="changeToLogin()">登录</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="login-body h100 oh relative">
+    <div class="login">
+        <h1 class="logo">后台管理系统</h1>
+        <form>
+            <span class="text-danger" ng-if="vm.isError">{{vm.errorInfo}}</span>
+            <div class="form-groups">
+                <label for="" class="label-control">登录名：</label>
+                <div class="controls">
+                    <input type="text" name="username" ng-model="vm.login.username">
+                </div>
+            </div>
+            <div class="form-groups">
+                <label for="" class="label-control">密&nbsp;&nbsp;&nbsp;码：</label>
+                <div class="controls">
+                    <input type="password" name="password" ng-model="vm.login.password">
+                </div>
+            </div>
+            <div class="form-groups">
+                <label for="" class="label-control">验证码：</label>
+                <div class="controls">
+                    <input type="text" class="code-text" name="code" ng-model="vm.login.code">
+                    <img src="/bbs2.0/php/config/code.php" class="h40 cursor-pointer" onclick="javascript:this.src='/bbs2.0/php/config/code.php?tm='+Math.random();" />
+                </div>
+            </div>
+            <div class="form-groups">
+                <label for="remember" class="label-control remember hidden"><input id="remember" type="checkbox"  ng-modal="vm.remember" ng-click="changeCheck()" />记住密码</label>
+                <input class="submit" type="submit" ng-click="login()" value="立即登录" /><a href="index.html" class="forget-pass go-index" >论坛首页</a>
+            </div>
+        </form>
+    </div>
+    <div class="login-bg"></div>
+</div>

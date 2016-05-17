@@ -1,0 +1,19 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">角色名</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" ng-model="vm.postData.name" placeholder="角色名">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">角色描述</label>
+        <div class="col-sm-4">
+            <textarea class="form-control"  ng-model="vm.postData.desc"  placeholder="角色描述"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary" ng-click="addRole()">添加</button>
+        </div>
+    </div>
+</form>

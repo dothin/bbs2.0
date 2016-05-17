@@ -1,0 +1,458 @@
+body{
+    font-family: "微软雅黑";
+}
+ul{
+    padding-left: 0;
+}
+li{
+    list-style-type: none;
+}
+a{
+    color: #188eee;
+} 
+a:hover,
+a:active,
+a:focus{
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .navbar-header {
+    float: right;
+  }
+  .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+     margin-left: 0; 
+    } 
+    .detail{
+        margin-right: 15px;
+        padding-top:20px;
+    }
+}
+@media (max-width: 768px){
+    .detail-main{
+        padding-top:10px !important;
+    }
+    .min-h130{
+        min-height: 40px !important;
+    }
+}
+dd, dt {
+    line-height: 2.428571;
+}
+.radio-inline+.radio-inline {
+    margin-left: 0;
+}
+.breadcrumb {
+    padding: 8px 15px;
+    margin-bottom: -10px;
+}
+.dropdown-menu {
+    min-width: 80px;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float:right;
+}
+.none{
+    display:none;
+}
+.navbar {
+  margin-bottom: 0;
+}
+.h100{
+    height:100%;
+}
+.oh{
+
+    overflow:hidden;
+}
+.br5{
+    border-radius: 5px;
+}
+.fb{
+    font-weight: bold;
+}
+.relative{
+    position:relative;
+}
+.p5{
+    padding:5px;
+}
+.pt10{
+    padding-top: 10px;
+}
+.pb10{
+    padding-bottom: 10px;
+}
+.pl15{
+    padding-left: 15px;
+}
+.pr15{
+    padding-right: 15px;
+}
+.pt20{
+    padding-top: 20px;
+}
+.pl15 img{
+    position:relative;
+    left:-10px;
+}
+.pb20{
+    padding-bottom: 20px;
+}
+.pb0{
+    padding-bottom: 0 !important;
+}
+.pr10{
+    padding-right: 10px;
+}
+.ml20{
+    margin-left: 20px;
+}
+.ml10{
+    margin-left: 10px;
+}
+.mr10{
+    margin-right: 10px;
+}
+.mr20{
+    margin-right: 20px;
+}
+.mt5{
+    margin-top: 5px;
+}
+.mt10{
+    margin-top: 10px;
+}
+.mb10{
+    margin-bottom: 10px;
+}
+.mb20{
+    margin-bottom: 20px;
+}
+.mr50{
+    margin-right: 50px;
+}
+.mr50f{
+    margin-right: -50px;
+}
+.ml55{
+    margin-left: 55px;
+}
+.min-w100{
+    min-width: 100px !important;
+}
+.min-h130{
+    min-height: 130px;
+}
+
+.normal{
+    color:green;
+}
+.abnormal{
+    color:red;
+}
+
+.post-normal,
+.post-abnormal{
+    background: green;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    width:60px;
+    text-align: center;
+}
+.post-abnormal{
+    background: #F1390E;
+}
+
+.bg-defalut{
+    background:#188eee !important;
+}
+.bg-eee{
+    background:#eee;
+}
+.bg-alert{
+    background:#F5780A !important;
+}
+.color-alert{
+    color:#F5780A !important;
+}
+.detail-content{
+  border-bottom: 1px dashed #ddd;
+  word-break: break-all;
+}
+.break_all{
+    word-break: break-all;
+}
+.h40{
+    height:40px;
+}
+.min-h40{
+    min-height: 40px;
+}
+.lh50{
+    line-height: 50px;
+}
+.min-h50{
+    min-height: 50px;
+}
+.lh40{
+    line-height: 40px;
+}
+.h30{
+    height:30px;
+}
+.lh30{
+    line-height: 30px;
+}
+.h50{
+    height: 50px;
+}
+.mb0{
+    margin-bottom: 0;
+}
+.w50{
+    width:50px;
+}
+.w80{
+    width:80px !important;
+}
+.w200{
+    width:200px;
+}
+.ml150{
+    margin-left:150px;
+}
+.inline-block{
+    display:inline-block;
+}
+
+.is-loading{
+    text-align: center;
+}
+.alert-tips{
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    width: 10px;
+    height: 10px;
+    background: #F58D09;
+    border-radius: 5px;
+}
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*delete*/
+.delete-list .close{
+    position:absolute;
+    top:0;
+    right:20px;
+}
+.r5{
+    right:5px !important;
+}
+/*alert*/
+.alert-success,
+.alert-error{
+    position: fixed;
+    top:-40px;
+    left:50%;
+    min-width:200px;
+    padding:0 20px;
+    height:40px;
+    background:rgba(51,136,255,.9);
+    z-index:9999;
+    color:#fff;
+    font-size: 18px;
+    text-align: center;
+    line-height:40px;
+    -webkit-transform: translate(-50%,0);
+    -ms-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+    animation: move 2s ease-out;
+    -moz-animation: move 2s ease-out;
+    -webkit-animation: move 2s ease-out;
+    -o-animation: move 2s ease-out;
+    overflow: hidden;
+}
+.alert-error{
+    background:rgba(234,97,34,.9);
+}
+@keyframes move
+{
+    0% {top:-40px;}
+    25%,50%,75%,100% {top:40px;}
+}
+@-moz-keyframes move /* Firefox */
+{
+    0% {top:-40px;}
+    25%,50%,75%,100% {top:40px;}
+}
+
+@-webkit-keyframes move /* Safari 和 Chrome */
+{
+    0% {top:-40px;}
+    25%,50%,75%,100% {top:40px;}
+}
+
+@-o-keyframes move /* Opera */
+{
+    0% {top:-40px;}
+    25%,50%,75%,100% {top:40px;}
+}
+
+
+.page-list .pagination {float:left;margin:0;}
+.page-list .pagination span {cursor: pointer;}
+.page-list .pagination .separate span{cursor: default; border-top:none;border-bottom:none;}
+.page-list .pagination .separate span:hover {background: none;}
+.page-list .page-total {float:left; margin: 5px 20px;}
+.page-list .page-total input, .page-list .page-total select{height: 26px; border: 1px solid #ddd;}
+.page-list .page-total input {width: 40px; padding-left:3px;}
+.page-list .page-total select {width: 50px;}
+
+
+.friend_list .page-total{
+    display:none;
+}
+
+
+/*模拟复选框*/
+.form-group .check-model{
+    position: relative;
+    width:50px !important;
+    height:30px !important;
+    background-color: #d2d9e1;
+    border-radius:15px;
+    cursor: pointer;
+}
+.form-group .check-model i{
+    position: absolute;
+    width:28px;
+    height:28px;
+    top:1px;
+    background: #fff;
+    border-radius:14px;
+    transition:all .3s;
+}
+.form-group .check-model i{
+    left:1px;
+}
+.form-group .active{
+    background: #188eee;
+    transition:all .3s;
+}
+.form-group .active i{
+    transition:all .3s;
+    left:21px;
+}
+/* lodaing-bar */
+#loading-bar,
+#loading-bar-spinner {
+    pointer-events: none;
+    -webkit-pointer-events: none;
+    -webkit-transition: 350ms linear all;
+    -moz-transition: 350ms linear all;
+    -o-transition: 350ms linear all;
+    transition: 350ms linear all;
+}
+
+#loading-bar.ng-enter,
+#loading-bar.ng-leave.ng-leave-active,
+#loading-bar-spinner.ng-enter,
+#loading-bar-spinner.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+#loading-bar.ng-enter.ng-enter-active,
+#loading-bar.ng-leave,
+#loading-bar-spinner.ng-enter.ng-enter-active,
+#loading-bar-spinner.ng-leave {
+    opacity: 1;
+}
+
+#loading-bar .bar {
+    -webkit-transition: width 350ms;
+    -moz-transition: width 350ms;
+    -o-transition: width 350ms;
+    transition: width 350ms;
+
+    background: #3388ff;
+    position: fixed;
+    z-index: 10002;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-bottom-right-radius: 1px;
+    border-top-right-radius: 1px;
+}
+
+/* Fancy blur effect */
+#loading-bar .peg {
+    position: absolute;
+    width: 70px;
+    right: 0;
+    top: 0;
+    height: 2px;
+    opacity: .45;
+    -moz-box-shadow: #3388ff 1px 0 6px 1px;
+    -ms-box-shadow: #3388ff 1px 0 6px 1px;
+    -webkit-box-shadow: #3388ff 1px 0 6px 1px;
+    box-shadow: #3388ff 1px 0 6px 1px;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+
+#loading-bar-spinner {
+    display: block;
+    position: fixed;
+    z-index: 10002;
+    bottom: 25px;
+    left: 10px;
+}
+#loading-bar-spinner .spinner-icon {
+    width: 14px;
+    height: 14px;
+
+    border:  solid 2px transparent;
+    border-top-color:  #3388ff;
+    border-left-color: #3388ff;
+    border-radius: 50%;
+
+    -webkit-animation: loading-bar-spinner 400ms linear infinite;
+    -moz-animation:    loading-bar-spinner 400ms linear infinite;
+    -ms-animation:     loading-bar-spinner 400ms linear infinite;
+    -o-animation:      loading-bar-spinner 400ms linear infinite;
+    animation:         loading-bar-spinner 400ms linear infinite;
+}
+
+@-webkit-keyframes loading-bar-spinner {
+    0%   { -webkit-transform: rotate(0deg);   transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-moz-keyframes loading-bar-spinner {
+    0%   { -moz-transform: rotate(0deg);   transform: rotate(0deg); }
+    100% { -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-o-keyframes loading-bar-spinner {
+    0%   { -o-transform: rotate(0deg);   transform: rotate(0deg); }
+    100% { -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-ms-keyframes loading-bar-spinner {
+    0%   { -ms-transform: rotate(0deg);   transform: rotate(0deg); }
+    100% { -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@keyframes loading-bar-spinner {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

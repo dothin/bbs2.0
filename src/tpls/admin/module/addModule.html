@@ -1,0 +1,27 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">模块名</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" ng-model="vm.postData.name" placeholder="模块名">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">模块描述</label>
+        <div class="col-sm-4">
+            <textarea class="form-control"  ng-model="vm.postData.desc"  placeholder="模块描述"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">缩略图</label>
+        <div class="col-sm-4">
+            <img id="url" class="br5" ng-src="{{vm.updateModal.url}}" alt="">
+            <input type="text" class="hidden"  id="module_url" ng-model="vm.postData.url">
+            <button type="button" ng-click="centerWindow('tpls/admin/module/uploadFile.html','upfile','400','100');">添加缩略图</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary" ng-click="addModule()">添加</button>
+        </div>
+    </div>
+</form>

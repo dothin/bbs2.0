@@ -1,0 +1,80 @@
+<div class="container friend_list">
+    <div class="row detail">
+        <div class="col-md-2 col-sm-4 col-xs-12">
+            <div class="table-wrap" ng-switch="vm.tableFlag">
+                <div class="no-search-manage is-loading" ng-switch-when="0">加载中……</div>
+                <div class="table-box" ng-switch-when="1">
+                    <div class="list-group mb10"  ng-repeat="friend in vm.userFriendList">
+                        <a href="" class="list-group-item" ng-click="getWhispers(friend.user_id,friend.friend_id,$event)">{{friend.user_name}}<span ng-if="friend.no_read_whispers>0" class="badge bg-alert">{{friend.no_read_whispers}}</span></a>
+                    </div>
+                </div>
+                <tm-pagination conf="paginationConf"></tm-pagination>
+                <div ng-switch-when="2" class="no-search-friend">暂无好友</div>
+            </div>
+        </div>
+        <div class="col-md-10 col-sm-8 col-xs-12">
+            <div ng-switch="vm.tabSwitch">
+                <div class="table-wrap" ng-switch-when="friend" ng-switch="vm.tableFlagFriend">
+                    <div class="no-search-manage is-loading" ng-switch-when="0">加载中……</div>
+                    <div class="table-box" ng-switch-when="1">
+                        <ul>
+                            <li ng-repeat="friend in vm.addFriendList" class="clearfix">
+                                <div class="bg-success mb20">
+                                    <img class="h50 pull-left" ng-src="{{friend.user_face}}" alt="">
+                                    <div class="ml55 min-h50 clearfix">
+                                        {{friend.user_name}}:'{{friend.friend_desc}}'
+                                        <span class="ml10 text-muted small">{{friend.friend_time}}</span>
+                                        <p class="pull-right">
+                                        <button type="button" class="btn btn-success btn-xs" ng-click="agreeFriend(friend.friend_id)">同意</button>
+                                        <button type="button" class="btn btn-danger btn-xs" ng-click="deleteFriend(friend.friend_id)">不同意</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-switch-when="2" class="text-center">暂无好友请求</div>
+                </div>
+                <div class="table-wrap" ng-switch-when="whispers" ng-switch="vm.tableFlagWhispers">
+                    <div class="mb10 text-left">
+                        <button type="button" class="btn btn-danger" ng-click="deleteFriend()">删除该好友</button>
+                    </div>
+                    <div class="no-search-manage is-loading" ng-switch-when="0" >加载中……</div>
+                    <div class="table-box" ng-switch-when="1">
+                        <div ng-repeat="whispers in vm.whispersList" class="clearfix">
+                            <div class="bg-eee mb10 p5 relative  delete-list" ng-if="vm.loginUser!=whispers.user_name">
+                                <img  class="h50 br5 pull-left" ng-src="{{whispers.user_face}}" alt="">
+                                <div class="ml55 min-h50 clearfix">
+                                    {{whispers.whispers_content}}
+                                    <p class="mt10">{{whispers.user_name}}&nbsp;<span class="text-muted small">{{whispers.whispers_time}}</span></p>
+                                </div>
+                            </div>
+                            <div class="bg-success mb10 p5 relative  delete-list" ng-if="vm.loginUser==whispers.user_name">
+                                <img  class="h50 br5 pull-left" ng-src="{{whispers.user_face}}" alt="">
+                                <div class="ml55 min-h50 clearfix">
+                                    {{whispers.whispers_content}}
+                                    <p class="mt10">{{whispers.user_name}}&nbsp;<span class="text-muted small">{{whispers.whispers_time}}</span></p>
+                                </div>
+                                 <button type="button" class="close r5" ng-click="deleteWhispers(whispers.whispers_id)" ><span aria-hidden="true">&times;</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <tm-pagination conf="paginationConfWhispers"></tm-pagination>
+                    <div ng-switch-when="2" class="text-center">暂无该好友私信</div>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea class="form-control"  ng-model="vm.addWhispers.content"  placeholder="私信"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary" ng-click="addWhispers()">发送</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

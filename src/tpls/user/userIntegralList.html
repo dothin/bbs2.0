@@ -1,0 +1,17 @@
+<div class="table-wrap" ng-switch="vm.tableFlag">
+    <p class="bg-info pt10 pb10 pl15 pr15 mb0 mt10">目前获取积分总和：{{vm.totalIntegral}}分</p>
+    <div class="no-search-post is-loading" ng-switch-when="0">加载中……</div>
+    <div class="table-box pt20" ng-switch-when="1">
+        <tm-pagination conf="paginationConf"></tm-pagination>
+        <div class="row">
+            <ul class="col-md-12 list-group pl15"> 
+                <li class="list-group-item"   ng-repeat="integral in vm.integralList">
+                    <span class="badge bg-defalut">+ {{integral.get_integral}}</span>
+                    <strong class="w80 inline-block mr10">{{integral.rule_action}}</strong><span class="text-muted small">时间：{{integral.time}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <tm-pagination conf="paginationConf"></tm-pagination>
+    <div ng-switch-when="2" class="text-center">暂无记录</div>
+</div>

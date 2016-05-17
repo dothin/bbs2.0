@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="myBbsAdminApp" lang="zh_CN" class="h100">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <title>myBbs--admin</title>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="dist/css/reset.min.css"/>
+        <link rel="stylesheet" href="dist/css/admin.min.css"/>
+    </head>
+    <body class="h100">
+        <div ui-view  class="h100"></div>
+        <div ng-if="alert" ng-class="{true: 'alert-success', false: 'alert-error'}[isActive]" ng-bind="alertValue"></div>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/angular-ui-router.min.js"></script>
+        <script src="js/angular-cookies.min.js"></script>
+        <script src="js/loading-bar.js"></script>
+        <script src="js/admin/app.js"></script>
+        <script src="js/admin/services.js"></script>
+        <script src="js/admin/controllers.js"></script>
+        <script src="js/admin/filters.js"></script>
+        <script src="js/admin/directives.js"></script>
+    </body>
+</html>
