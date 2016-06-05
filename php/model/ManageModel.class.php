@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2016-01-19 00:39:38
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2016-05-16 16:53:12
+ * @Last Modified time: 2016-05-21 16:41:31
  */
 //管理员实体类
 class ManageModel extends Model{
@@ -25,11 +25,13 @@ class ManageModel extends Model{
         return $this->$key;
     }
     //获取管理员总记录
-    public function queryManageTotal(){
+    public function queryManageTotal(){  
         $sql="SELECT 
               COUNT(*)
               FROM 
-                    bbs_manage";
+                    bbs_manage m,
+                    bbs_manage_level l
+              WHERE m.manage_level=l.m_level_id";
         return parent::total($sql);
     }
 

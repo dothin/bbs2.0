@@ -33,7 +33,7 @@ var tools = {
         }, 2000);
         $rootScope.alertValue = data;
     },
-    alertError: function($cookies,$rootScope, $state, data) { //失败弹窗
+    alertError: function($cookies, $rootScope, $state, data) { //失败弹窗
         if (data == '用户验证失败，请先登录') {
             tools.logout($cookies, $rootScope, $state);
         }
@@ -64,7 +64,7 @@ myBbsAdminCtrls.controller('headerController', ['$scope', '$rootScope', '$cookie
                     tools.alertError($rootScope, "退出失败");
                 }
             }, function() {
-                tools.alertError($cookies,$rootScope, $state, "退出失败");
+                tools.alertError($cookies, $rootScope, $state, "退出失败");
             });
         }
     }
@@ -96,6 +96,7 @@ myBbsAdminCtrls.controller('loginController', ['$scope', '$rootScope', '$cookies
                 if (data.status === true) {
                     var expires = new Date();
                     expires.setTime(expires.getTime() + 30 * 24 * 3600000);
+                    //将权限标识和用户名存入cookie中
                     $scope.vm.remember ? $cookies.putObject('admin', {
                         name: data.data.manage_name,
                         premission: data.data.premission
@@ -167,7 +168,7 @@ myBbsAdminCtrls.controller('manageListController', ['$scope', '$rootScope', '$co
                         $scope.paginationConf.itemsPerPage = data.pageSize;
                     } else {
                         $scope.vm.tableFlag = 2;
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -200,7 +201,7 @@ myBbsAdminCtrls.controller('manageListController', ['$scope', '$rootScope', '$co
                         $("#deleteModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -219,7 +220,7 @@ myBbsAdminCtrls.controller('manageListController', ['$scope', '$rootScope', '$co
                     });
                     $scope.vm.levelList = data.data;
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
             $scope.updateManage = function() {
@@ -237,7 +238,7 @@ myBbsAdminCtrls.controller('manageListController', ['$scope', '$rootScope', '$co
                         $("#updateModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -253,7 +254,6 @@ myBbsAdminCtrls.controller('addManageController', ['$scope', '$rootScope', '$coo
                 "action": "addManage",
                 "username": "",
                 "password": "",
-                "level": 1,
                 "sex": 0
             },
             getAllLevelList: {
@@ -262,21 +262,26 @@ myBbsAdminCtrls.controller('addManageController', ['$scope', '$rootScope', '$coo
         }
         manageServer.service($scope.vm.getAllLevelList).then(function(data) {
             if (data.status === true) {
+                var _arr=[];
+                angular.forEach(data.data, function(data) {
+                    _arr.push(parseInt(data.m_level_id));
+                });
+                $scope.vm.smallest = Math.min.apply(null, _arr);
                 $scope.vm.levelList = data.data;
             } else {
-                tools.alertError($cookies,$rootScope, $state, data.data);
+                tools.alertError($cookies, $rootScope, $state, data.data);
             }
         });
         $scope.addManage = function() {
+            $scope.vm.postData.level=$("#level").val();
             manageServer.service($scope.vm.postData).then(function(data) {
                 if (data.status === true) {
                     tools.alertSuccess($rootScope, "添加成功");
                     $scope.vm.postData.username = "";
                     $scope.vm.postData.password = "";
-                    $scope.vm.postData.level = 1;
                     $scope.vm.postData.sex = 0;
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         }
@@ -325,7 +330,7 @@ myBbsAdminCtrls.controller('manageLevelListController', ['$scope', '$rootScope',
                         $("#deleteModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -364,11 +369,11 @@ myBbsAdminCtrls.controller('manageLevelListController', ['$scope', '$rootScope',
                             $("#updateModal").modal("hide");
                             $scope.init();
                         } else {
-                            tools.alertError($cookies,$rootScope, $state, data.data);
+                            tools.alertError($cookies, $rootScope, $state, data.data);
                         }
                     });
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, "未选择权限");
+                    tools.alertError($cookies, $rootScope, $state, "未选择权限");
                 }
             }
         };
@@ -406,11 +411,11 @@ myBbsAdminCtrls.controller('addManageLevelController', ['$scope', '$rootScope', 
                         $scope.vm.postData.name = "";
                         $scope.vm.postData.desc = "";
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             } else {
-                tools.alertError($cookies,$rootScope, $state, "未选择权限");
+                tools.alertError($cookies, $rootScope, $state, "未选择权限");
             }
         }
     }
@@ -461,7 +466,7 @@ myBbsAdminCtrls.controller('moduleListController', ['$scope', '$rootScope', '$co
                         $scope.paginationConf.itemsPerPage = data.pageSize;
                     } else {
                         $scope.vm.tableFlag = 2;
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -494,7 +499,7 @@ myBbsAdminCtrls.controller('moduleListController', ['$scope', '$rootScope', '$co
                         $("#deleteModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -517,7 +522,7 @@ myBbsAdminCtrls.controller('moduleListController', ['$scope', '$rootScope', '$co
                         $("#allInfoModel").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -532,7 +537,7 @@ myBbsAdminCtrls.controller('moduleListController', ['$scope', '$rootScope', '$co
                 if (data.status === true) {
                     $scope.vm.userModuleList = data.data;
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
             $scope.deleteUserModule = function(id) {
@@ -546,7 +551,7 @@ myBbsAdminCtrls.controller('moduleListController', ['$scope', '$rootScope', '$co
                         $("#getUserModuleModel").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -577,7 +582,7 @@ myBbsAdminCtrls.controller('moduleListController', ['$scope', '$rootScope', '$co
                         $("#updateModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -609,7 +614,7 @@ myBbsAdminCtrls.controller('addModuleController', ['$scope', '$rootScope', '$coo
                     $scope.vm.postData.desc = "";
                     $scope.vm.postData.desc = "";
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         }
@@ -650,7 +655,7 @@ myBbsAdminCtrls.controller('userListController', ['$scope', '$rootScope', '$cook
                         $scope.paginationConf.itemsPerPage = data.pageSize;
                     } else {
                         $scope.vm.tableFlag = 2;
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -680,7 +685,7 @@ myBbsAdminCtrls.controller('userListController', ['$scope', '$rootScope', '$cook
                     data.data.user_sign_active = data.data.user_sign_active == 0 ? "关闭" : "开启";
                     $scope.vm.userAllInfoList = data.data;
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         }
@@ -701,7 +706,7 @@ myBbsAdminCtrls.controller('userListController', ['$scope', '$rootScope', '$cook
                         $("#disablleModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -727,7 +732,7 @@ myBbsAdminCtrls.controller('userListController', ['$scope', '$rootScope', '$cook
                         $("#updateModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -753,7 +758,7 @@ myBbsAdminCtrls.controller('addUserController', ['$scope', '$rootScope', '$cooki
                     $scope.vm.postData.password = "";
                     $scope.vm.postData.repassword = "";
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         }
@@ -798,7 +803,7 @@ myBbsAdminCtrls.controller('userRoleListController', ['$scope', '$rootScope', '$
                         $("#deleteModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -822,7 +827,7 @@ myBbsAdminCtrls.controller('userRoleListController', ['$scope', '$rootScope', '$
                         $("#updateModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -846,7 +851,7 @@ myBbsAdminCtrls.controller('addRoleController', ['$scope', '$rootScope', '$cooki
                     $scope.vm.postData.name = "";
                     $scope.vm.postData.desc = "";
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         }
@@ -891,7 +896,7 @@ myBbsAdminCtrls.controller('userLevelListController', ['$scope', '$rootScope', '
                         $("#deleteModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -919,7 +924,7 @@ myBbsAdminCtrls.controller('userLevelListController', ['$scope', '$rootScope', '
                         $("#updateModal").modal("hide");
                         $scope.init();
                     } else {
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -948,7 +953,7 @@ myBbsAdminCtrls.controller('addLevelController', ['$scope', '$rootScope', '$cook
                     $scope.vm.postData.start = "";
                     $scope.vm.postData.end = "";
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         }
@@ -984,7 +989,7 @@ myBbsAdminCtrls.controller('postListController', ['$scope', '$rootScope', '$cook
                         $scope.paginationConf.itemsPerPage = data.pageSize;
                     } else {
                         $scope.vm.tableFlag = 2;
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }
@@ -1010,7 +1015,7 @@ myBbsAdminCtrls.controller('postListController', ['$scope', '$rootScope', '$cook
                     tools.alertSuccess($rootScope, "设置成功");
                     $scope.init();
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         };
@@ -1024,7 +1029,7 @@ myBbsAdminCtrls.controller('postListController', ['$scope', '$rootScope', '$cook
                     tools.alertSuccess($rootScope, "设置成功");
                     $scope.init();
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         };
@@ -1076,7 +1081,7 @@ myBbsAdminCtrls.controller('integralListController', ['$scope', '$rootScope', '$
                         data.rule_status = data.rule_status == 1 ? true : false;
                     })
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         }
@@ -1100,7 +1105,7 @@ myBbsAdminCtrls.controller('integralListController', ['$scope', '$rootScope', '$
                     tools.alertSuccess($rootScope, data.data);
                     $scope.init();
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, "设置失败");
+                    tools.alertError($cookies, $rootScope, $state, "设置失败");
                 }
             });
         };
@@ -1202,7 +1207,7 @@ myBbsAdminCtrls.controller('systemConfController', ['$scope', '$rootScope', '$co
                 if (data.status === true) {
                     $scope.vm.systemConf = data.data;
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         }
@@ -1220,7 +1225,7 @@ myBbsAdminCtrls.controller('systemConfController', ['$scope', '$rootScope', '$co
                     tools.alertSuccess($rootScope, data.data);
                     $scope.init();
                 } else {
-                    tools.alertError($cookies,$rootScope, $state, data.data);
+                    tools.alertError($cookies, $rootScope, $state, data.data);
                 }
             });
         };
@@ -1252,7 +1257,7 @@ myBbsAdminCtrls.controller('systemLogController', ['$scope', '$rootScope', '$coo
                         $scope.paginationConf.itemsPerPage = data.pageSize;
                     } else {
                         $scope.vm.tableFlag = 2;
-                        tools.alertError($cookies,$rootScope, $state, data.data);
+                        tools.alertError($cookies, $rootScope, $state, data.data);
                     }
                 });
             }

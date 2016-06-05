@@ -14,8 +14,8 @@
     <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">角色</label>
         <div class="col-sm-4">
-            <select class="form-control" ng-model="vm.postData.level" ng-options="x.m_level_id as x.m_level_name for x in vm.levelList">
-            <option value="">-- 请选择角色(不选默认为超管) --</option>
+            <select class="form-control" id="level">
+                <option ng-repeat="level in vm.levelList" value="{{level.m_level_id }}" ng-selected="level.m_level_id==vm.smallest">{{level.m_level_name}}</option>
             </select>
         </div>
     </div>

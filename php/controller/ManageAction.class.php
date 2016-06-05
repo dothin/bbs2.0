@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2016-01-19 20:12:34
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2016-05-16 17:02:17
+ * @Last Modified time: 2016-06-05 10:12:30
  */
 require substr(dirname(__FILE__),0,-11).'/init.inc.php';
 class ManageAction extends Action{
@@ -16,7 +16,6 @@ class ManageAction extends Action{
     }
 
     public function action(){
-        
         $this->data=json_decode(file_get_contents("php://input"));
         if($this->data->action=='login'){
             $this->login();
@@ -26,37 +25,37 @@ class ManageAction extends Action{
             Validate::checkAdminSession();
             Validate::checkPremission('1','没有管理管理员的权限');
             switch ($this->data->action) {
-            case 'addManage':
-                $this->addManage();
-                break;
-            case 'update':
-                $this->update();
-                break;
-            case 'delete':
-                $this->delete();
-                break;
-            case 'getAllList':
-                $this->getAllList();
-                break;
-            case 'addLevel':
-                $this->addLevel();
-                break;
-            case 'getAllLevelList':
-                $this->getAllLevelList();
-                break;
-            case 'updateLevel':
-                $this->updateLevel();
-                break;
-            case 'deleteLevel':
-                $this->deleteLevel();
-                break;
-            case 'getAllpremissionList':
-                $this->getAllpremissionList();
-                break;
-            default:
-                //$this->query();
-                break;
-        }
+                case 'addManage':
+                    $this->addManage();
+                    break;
+                case 'update':
+                    $this->update();
+                    break;
+                case 'delete':
+                    $this->delete();
+                    break;
+                case 'getAllList':
+                    $this->getAllList();
+                    break;
+                case 'addLevel':
+                    $this->addLevel();
+                    break;
+                case 'getAllLevelList':
+                    $this->getAllLevelList();
+                    break;
+                case 'updateLevel':
+                    $this->updateLevel();
+                    break;
+                case 'deleteLevel':
+                    $this->deleteLevel();
+                    break;
+                case 'getAllpremissionList':
+                    $this->getAllpremissionList();
+                    break;
+                default:
+                    //$this->query();
+                    break;
+            }
         }
     }
      private function addLevel(){
